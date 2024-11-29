@@ -49,7 +49,7 @@ You can also use the --session flag to use the DBus session bus instead of the s
 
 ## Systemd Service
 
-The project includes a systemd service file to manage the service using systemd. The service file is located at systemd/commutator-vigicrues.service.
+The project includes a systemd service file to manage the service using systemd. The service file is located at systemd/commutator-vigicrues.service. You need to replace %%STATIONID%% with your stationid.
 
 ## DBus Configuration
 

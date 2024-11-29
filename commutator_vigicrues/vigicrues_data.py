@@ -97,8 +97,7 @@ class VigicruesData:
 
         except Exception as e:
             _LOGGER.error("Connection error: {}".format(e))
-            self.data = None
-            return
+            raise ConnectionError("Failed to connect to pyvigicrues")
 
         totalPtsNb = len(data_water_level['Serie']['ObssHydro'])
         self.water_level_value = str(data_water_level['Serie']['ObssHydro'][totalPtsNb-1]['ResObsHydro'])
