@@ -18,13 +18,13 @@ To start the program, run:
 
 You can also use the --session flag to use the DBus session bus instead of the system bus:
 
-	commutator-sytadin --session --stationid F664000104
+	commutator-vigicrues --session --stationid F664000104
 	
+Additionally, you can specify the update interval in seconds using the --update-interval flag. The default interval is 3600 seconds (60 minutes):
+
+	commutator-vigicrues --session --stationid F664000104 --update-interval 600
+
 ## DBus Interface
-
-### Methods
-
-    update(): Fetches the latest water level and flow information from Vigicrues.
 
 ### Properties
 
