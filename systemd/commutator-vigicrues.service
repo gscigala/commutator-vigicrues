@@ -1,6 +1,6 @@
 [Unit]
 Description=Vigicrues Data Service
-After=network.target
+After=network-online.target
 
 [Service]
 ExecStart=/usr/local/bin/commutator-vigicrues --stationid %%STATIONID%%
