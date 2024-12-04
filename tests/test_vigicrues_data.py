@@ -49,8 +49,11 @@ class TestVigicruesData(unittest.TestCase):
         }
         mock_client_instance.get_data.return_value = mock_data
 
+        # Mock the properties_changed_callback
+        properties_changed_callback = MagicMock()
+
         # Create an instance of VigicruesData
-        vigicrues_data = VigicruesData('F664000104')
+        vigicrues_data = VigicruesData(properties_changed_callback, 'F664000104', 3600)
         vigicrues_data.update()
 
         # Check the updated values
@@ -58,6 +61,8 @@ class TestVigicruesData(unittest.TestCase):
         self.assertEqual(vigicrues_data.water_level_tendency, 'Stable')
         self.assertEqual(vigicrues_data.flow_value, '5.5')
         self.assertEqual(vigicrues_data.flow_tendency, 'Stable')
+
+        vigicrues_data.stop_auto_update()
 
 if __name__ == '__main__':
     unittest.main()

@@ -3,27 +3,16 @@ import dbus.service
 from .vigicrues_data import VigicruesData
 
 class VigicruesDBusService(dbus.service.Object):
-    def __init__(self, bus_name, stationid, object_path='/com/commutator/Vigicrues'):
+    def __init__(self, bus_name, stationid, update_interval, object_path='/com/commutator/Vigicrues'):
         dbus.service.Object.__init__(self, bus_name, object_path)
-        self.data = VigicruesData(stationid)
-
-    @dbus.service.method('com.commutator.Vigicrues', in_signature='', out_signature='')
-    def update(self):
-        self.data.update()
-        self.PropertiesChanged(
-            'com.commutator.Vigicrues',
-            {
-                'water_level_value': self.data.water_level_value,
-                'water_level_tendency': self.data.water_level_tendency,
-                'flow_value': self.data.flow_value,
-                'flow_tendency': self.data.flow_tendency
-            },
-            []
-        )
+        self.data = VigicruesData(self.properties_changed, stationid, update_interval)
 
     @dbus.service.signal('org.freedesktop.DBus.Properties', signature='sa{sv}as')
     def PropertiesChanged(self, interface_name, changed_properties, invalidated_properties):
         pass
+
+    def properties_changed(self, changed_properties):
+        self.PropertiesChanged('com.commutator.Vigicrues', changed_properties, [])
 
     @dbus.service.method('org.freedesktop.DBus.Properties', in_signature='ss', out_signature='v')
     def Get(self, interface_name, property_name):
@@ -43,3 +32,6 @@ class VigicruesDBusService(dbus.service.Object):
             'flow_value': self.data.flow_value,
             'flow_tendency': self.data.flow_tendency
         }
+
+    def stop_auto_update(self):
+        self.data.stop_auto_update()
