@@ -27,9 +27,13 @@ class VigicruesData:
 
     def auto_update(self):
         """Update the data and restart the timer."""
-        self.update()
-        self.timer = threading.Timer(self.update_interval, self.auto_update)
-        self.timer.start()
+        try:
+            self.update()
+        except Exception as e:
+            _LOGGER.error("Error in auto_update: {}".format(e))
+        finally:
+            self.timer = threading.Timer(self.update_interval, self.auto_update)
+            self.timer.start()
 
     def stop_auto_update(self):
         """Stop the auto-update timer."""
