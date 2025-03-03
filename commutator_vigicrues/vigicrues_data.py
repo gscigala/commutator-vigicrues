@@ -1,6 +1,7 @@
 import logging
 import math
 import threading
+import sdnotify
 
 import pyvigicrues
 
@@ -24,6 +25,7 @@ class VigicruesData:
         self.properties_changed_callback = properties_changed_callback
         self.update_interval = update_interval
         self.auto_update()
+        sdnotify.SystemdNotifier().notify("READY=1")
 
     def auto_update(self):
         """Update the data and restart the timer."""
