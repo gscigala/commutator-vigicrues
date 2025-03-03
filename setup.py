@@ -8,6 +8,7 @@ setup(
     install_requires=[
         'dbus-python',
         'pyvigicrues',
+        'sdnotify'
     ],
     entry_points={
         'console_scripts': [
